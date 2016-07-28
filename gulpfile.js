@@ -62,7 +62,7 @@ gulp.task('js', function() {
 gulp.task('minhtml', function() {
   	if (MODE ==="production"){
   		return gulp.src('src/*.{html,php}')
-    	.pipe(htmlmin({collapseWhitespace: true, useShortDoctype: true, html5: true}))
+    	.pipe(htmlmin({collapseWhitespace: true, useShortDoctype: true, html5: false}))
     	.pipe(gulp.dest('build'));
   	}else{
   		return gulp.src('src/*.{html,php}')
