@@ -5,7 +5,10 @@
  */
 
 // Core variables and mixins
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+// keep what you need!
+
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "src/bootstrap/variables";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 
 // Reset and dependencies
@@ -57,13 +60,4 @@
 
 //Your Styles
 
-body{
-	min-width: 320px;
-	a{
-		padding: 0px;
-		&:hover{
-			color:#fff;
-		}
-	}
-}
 

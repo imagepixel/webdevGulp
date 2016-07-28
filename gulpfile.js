@@ -16,7 +16,7 @@ var MODE = "production"; // oder 'development'
 gulp.task('images', function() {
   return gulp.src('src/img/**/*')
     .pipe(imagemin())
-    .pipe(gulp.dest('build/assets/images'));
+    .pipe(gulp.dest('build/assets/img'));
 });
 
 //CSS verkleinern und autoprefixen
