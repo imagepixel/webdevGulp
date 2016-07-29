@@ -26,7 +26,7 @@ gulp.task('css', function() {
 			var cssmode = 'compressed';
 			}else{cssmode='expanded';}
 
-	return gulp.src('src/sass/**/*.scss')
+	return gulp.src('src/sass/style.scss')
 		// on error wird benötigt wegen Fehlerausgabe
 		.pipe(sass({outputStyle: cssmode}).on('error', sass.logError))
 		.pipe(gulpif(MODE === 'production',
