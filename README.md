@@ -2,8 +2,8 @@
 <a target="_blank" href="http://www.imagepixel.de"><img src="http://www.imagepixel.de/img/logo.png" alt="www.magepixel.de"></a>
 
 
-Build your own Bootstrap-sass framework.<br>
-Take the parts you really need and shrink your dist. css file.<br><br>
+##To quick start a web project <br>
+Take the parts you really need and shrink your files.<br><br>
 
 it´s a small example for building your own Bootstrap framework with nodeJS (gulp, autoprefixer ...).<br>
 Bootstrap v3.3.6 <br>
