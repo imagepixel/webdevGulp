@@ -8,7 +8,7 @@
     <title>Bootstrap-Basis-Vorlage</title>
 
     <!-- Bootstrap -->
-    <link href="asstes/css/main.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
 
     <!-- Unterstützung für Media Queries und HTML5-Elemente in IE8 über HTML5 shim und Respond.js -->
     <!-- ACHTUNG: Respond.js funktioniert nicht, wenn du die Seite über file:// aufrufst -->
