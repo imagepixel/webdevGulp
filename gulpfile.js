@@ -65,7 +65,7 @@ gulp.task('copyfiles', function() {
   	}
 
 
-});
+);
 
 
 //Watch Tasks erstellen. $ gulp watch aufrufen
