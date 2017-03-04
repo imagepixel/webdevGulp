@@ -1,4 +1,4 @@
-# WebDev
+# WebDev with Gulp and plugins
 <a target="_blank" href="http://www.imagepixel.de"><img src="http://www.imagepixel.de/img/logo.png" alt="www.magepixel.de"></a>
 
 
@@ -19,6 +19,7 @@ Bootstrap v3.3.6 <br>
 9. edit src/index.php or add a few new files .html or .php
 10. find the new files in build/ folder
 11. enjoy ;)
+
 
 
 
