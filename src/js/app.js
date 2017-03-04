@@ -1,0 +1,1 @@
+/* Please read about browserify www.browserify.org */

@@ -1,4 +1,4 @@
-@import "src/sass/modules";
+//@import "src/sass/modules";
 //@import "your/own/modules"; or Bootstrap variables
 
 
@@ -6,6 +6,9 @@
 =            Your Style            =
 ==================================*/
 
+body{
+	background:url(../img/test.jpg);
 
+}
 
 /*=====  End of Your Style  ======*/
