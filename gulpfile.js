@@ -36,7 +36,7 @@ gulp.task('cleanCSS', function(){
 
 //Copy data
 gulp.task('copyfiles', function() {
-  		return gulp.src('src/*.{php, html}')
+  		return gulp.src('src/*.{php,html,inc}')
     	.pipe(gulp.dest('./build/'));
   	}
 
@@ -61,7 +61,7 @@ gulp.task('css', ['copyfiles'], function() {
 				})
 		]))
 		.pipe(rename('main.css'))
-		.pipe(md5(10,'./build/*.{php, html}'))
+		.pipe(md5(10,'./build/*.{php,html,inc}'))
 		.pipe(gulp.dest('build/assets/css/'));
 });
 
