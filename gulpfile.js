@@ -23,10 +23,6 @@ function onError(err){
 
 var MODE = "dev"; // production or 'dev'
 
-//Clean all your files
-gulp.task('clean', function(){
-	return del(['./build/']);
-});
 
 //Clean  your images
 gulp.task('cleanImages', function(){
@@ -116,6 +112,11 @@ gulp.task('browserify', function(){
 	.pipe(gulp.dest('./build/assets/js/'))
 });
 
+
+//Clean all your files
+gulp.task('clean', function(){
+	return del(['./build/']);
+});
 
 //gulp watch tast
 gulp.task('watch', function() {
