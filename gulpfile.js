@@ -14,6 +14,7 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var plumber = require('gulp-plumber');
 var beeper = require('beeper');
+var jsonfile = require('jsonfile');
 
 //Error Helper
 function onError(err){

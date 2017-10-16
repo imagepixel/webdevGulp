@@ -17,24 +17,25 @@
     "url": "https://github.com/imagepixel/webdevGulp.git"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.7",
+    "autoprefixer": "^7.1",
     "beeper": "^1.1.1",
-    "browserify": "^14.1.0",
+    "browserify": "^14.4.0",
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-htmlmin": "^2.0.0",
-    "gulp-if": "^2.0.1",
-    "gulp-imagemin": "^3.0.2",
-    "gulp-md5-plus": "^0.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^3.4.0",
+    "gulp-md5-plus": "^1.0.3",
     "gulp-plumber": "^1.1.0",
-    "gulp-postcss": "^6.1.1",
+    "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^1.5.4",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
-    "del": "^2.2.0"
+    "del": "^3.0.0",
+    "jsonfile": "^4.0.0"
   }
 }
