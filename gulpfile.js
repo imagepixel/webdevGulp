@@ -58,12 +58,12 @@ gulp.task('css', ['copyfiles'], function() {
 		// on error wird benötigt wegen Fehlerausgabe
 		.pipe(sass({outputStyle: cssmode}).on('error', sass.logError))
 		.pipe(postcss([autoprefixer({
-					browsers: ['last 2 version', 'ie 9', 'ie 10']
+					browsers: ['last 2 version','ie 9','ie 10']
 				})
 		]))
 		.pipe(rename('main.css'))
 		.pipe(md5(10,'./build/*.{php,html,inc}'))
-		.pipe(gulp.dest('build/assets/css/'));
+		.pipe(gulp.dest('build/assets/css/'))
 });
 
 //shrink your images
@@ -124,7 +124,7 @@ gulp.task('watch', function() {
 	gulp.watch('src/img/*.{png,jpg,gif,svg}', ['images']);
 	gulp.watch('src/sass/**/*.scss', ['css']);
 	gulp.watch('src/js/**/*.js', ['js']);
-	gulp.watch('src/*.{html, php}', ['copyfiles']);
+	gulp.watch('src/*.{html,php,inc}', ['copyfiles']);
 
 });
 //gulp default tast
