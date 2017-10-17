@@ -35,6 +35,11 @@ gulp.task('cleanCSS', function(){
 	return del(['./build/assets/css/']);
 });
 
+//Clean manifest file
+gulp.task('cleanManifest', function(){
+	return del(['./manifest.json']);
+});
+
 //Copy data
 gulp.task('copyfiles', function() {
   		return gulp.src('src/*.{php,html,inc}')
@@ -62,21 +67,29 @@ gulp.task('css', ['copyfiles'], function() {
 				})
 		]))
 		.pipe(rename('main.css'))
-		.pipe(md5(10,'./build/*.{php,html,inc}'))
-		.pipe(gulp.dest('build/assets/css/'))
+		.pipe(md5(10,'./build/*.{php,html,inc}',{
+			mappingFile: 'manifest.json'
+		}))
+		.pipe(gulp.dest('build/assets/css/'));
 });
 
 //shrink your images
-gulp.task('images', ['css'], function() {
-  return gulp.src('src/img/**/*')
+gulp.task('images', /*['css'],*/function() {
+	var imgSrc = 'src/img/**/*',
+        //quoteSrc = './build/assets/css/*.css', // [./output/static/css/**/*.css',./output/static/js/**/*.js'] 
+        imgDst = './build/assets/img/';
+  return gulp.src(imgSrc)
   	   .pipe(plumber({
 				errorHandler:onError
 		}))
-       .pipe(md5(10 ,'./build/assets/css/*.css',{
-        	dirLevel : 1
-        }))
-    .pipe(imagemin())
-    .pipe(gulp.dest('./build/assets/img/'));
+  	   .pipe(imagemin())
+       /*.pipe(md5(10 ,quoteSrc,{
+        	dirLevel : 1,
+        	mappingFile: 'manifest.json',
+        	connector: '_'
+        }))*/
+   
+    .pipe(gulp.dest(imgDst));
 });
 
 
@@ -98,7 +111,7 @@ gulp.task('js', function() {
 				return gulp.src('src/js/main.js')
 				.pipe(plumber())
 				.pipe(concat('all.min.js'))
-				.pipe(gulp.dest('./build/assets/js/'))
+				.pipe(gulp.dest('./build/assets/js/'));
 			}
 
 });
@@ -110,7 +123,7 @@ gulp.task('browserify', function(){
 				errorHandler:onError
 		}))
 	.pipe(source('bundle.js'))
-	.pipe(gulp.dest('./build/assets/js/'))
+	.pipe(gulp.dest('./build/assets/js/'));
 });
 
 
@@ -129,4 +142,6 @@ gulp.task('watch', function() {
 });
 //gulp default tast
 
-gulp.task('default', ['cleanImages', 'cleanCSS', 'copyfiles',  'css', 'images', 'js', 'browserify']);
+gulp.task('default', ['cleanImages', 'cleanCSS', 'cleanManifest'], function(){
+	gulp.start('copyfiles',  'css', 'images', 'js', 'browserify');
+})
