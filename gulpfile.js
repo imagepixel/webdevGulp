@@ -39,6 +39,10 @@ gulp.task('cleanCSS', function(){
 gulp.task('cleanManifest', function(){
 	return del(['./manifest.json']);
 });
+//Clean pph,inc,html files
+gulp.task('cleanFiles', function(){
+	return del(['./build/*.{php,inc,html}']);
+});
 
 //Copy data
 gulp.task('copyfiles', function() {
@@ -50,7 +54,7 @@ gulp.task('copyfiles', function() {
 );
 
 //uglify CSS
-gulp.task('css', ['copyfiles', 'cleanCSS'], function() {
+gulp.task('css', ['cleanCSS', 'cleanFiles', 'copyfiles'], function() {
 		// je nach Modus wird dementsprechend die CSS Datei erstellt.
 			if (MODE ==='production') {
 				var cssmode = 'compressed';
@@ -137,7 +141,7 @@ gulp.task('watch', function() {
 	gulp.watch('src/img/*.{png,jpg,gif,svg}', ['images']);
 	gulp.watch('src/sass/**/*.scss', ['css']);
 	gulp.watch('src/js/**/*.js', ['js']);
-	gulp.watch('src/*.{html,php,inc}', ['copyfiles']);
+	gulp.watch('src/*.{html,php,inc}', ['css']);
 
 });
 //gulp default tast
