@@ -1,8 +1,8 @@
-var gulp = require('gulp');
-var md5 = require("gulp-md5-plus");
-var del = require('del');
-var sass = require('gulp-sass');
-var imagemin = require('gulp-imagemin');
+var gulp = require('gulp'); //Automate and enhance your workflow
+var md5 = require("gulp-md5-plus"); //replace the filenames in css or the html if needed by passing the file or dir in the second parameter
+var del = require('del'); //It also protects you against deleting the current working directory and above
+var sass = require('gulp-sass'); //Sass plugin for Gulp.
+var imagemin = require('gulp-imagemin'); 
 var rename = require('gulp-rename');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
@@ -50,7 +50,7 @@ gulp.task('copyfiles', function() {
 );
 
 //uglify CSS
-gulp.task('css', ['copyfiles'], function() {
+gulp.task('css', ['copyfiles', 'cleanCSS'], function() {
 		// je nach Modus wird dementsprechend die CSS Datei erstellt.
 			if (MODE ==='production') {
 				var cssmode = 'compressed';
