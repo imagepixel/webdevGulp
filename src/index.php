@@ -8,7 +8,7 @@
     <meta name="author" content="It´s me">
 
     <!-- Die 3 Meta-Tags oben *müssen* zuerst im head stehen; jeglicher sonstiger head-Inhalt muss *nach* diesen Tags kommen -->
-    <title>Bootstrap-Basis-Vorlage</title>
+    <title>Start-Template</title>
 
     <!-- Bootstrap -->
     <link href="assets/css/main.css" rel="stylesheet">

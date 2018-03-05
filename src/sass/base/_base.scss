@@ -1,0 +1,16 @@
+
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; /*inherited from the body*/
+}
+html{
+    font-size:62,5%; /* 16px is a default value on every computer. 62,5% equals 10px. (1REM = 10PX  */
+}
+
+body{
+        box-sizing:border-box;
+}

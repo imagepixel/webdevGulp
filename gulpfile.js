@@ -55,7 +55,7 @@ gulp.task('copyfiles', function() {
 
 //uglify CSS
 gulp.task('css', ['cleanCSS', 'cleanFiles', 'copyfiles'], function() {
-		// je nach Modus wird dementsprechend die CSS Datei erstellt.
+		
 			if (MODE ==='production') {
 				var cssmode = 'compressed';
 			}else{cssmode='expanded';}
@@ -64,7 +64,7 @@ gulp.task('css', ['cleanCSS', 'cleanFiles', 'copyfiles'], function() {
 		.pipe(plumber({
 				errorHandler:onError
 		}))
-		// on error wird benötigt wegen Fehlerausgabe
+		// on error 
 		.pipe(sass({outputStyle: cssmode}).on('error', sass.logError))
 		.pipe(postcss([autoprefixer({
 					browsers: ['last 2 version','ie 9','ie 10']

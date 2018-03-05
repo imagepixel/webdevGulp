@@ -1,13 +1,36 @@
-@import "src/sass/modules";
-//@import "your/own/modules"; or Bootstrap variables
+/*!
+ * Bootstrap (if nessesary )
+*/
+//@import "src/sass/modules";
 
 
-/*==================================
-=            Your Style            =
-==================================*/
+/*!
+ * project styles
+ */
 
-body{
-	background: url('../img/test.jpg');
-}
+ //functions, mixins and variables
+ @import "abstracts/variables";
+ @import "abstracts/functions";
+ @import "abstracts/mixins";
 
-/*=====  End of Your Style  ======*/
+ //Base files like animations, base styles, typography, utilities
+ @import "base/base";
+ @import "base/animations";
+ @import "base/typography";
+ @import "base/utilities";
+
+ //Components like Buttons
+ @import "components/button";
+
+ //layout like grid-system
+ @import "layout/header";
+ @import "layout/grid";
+
+
+ //special site styles
+ @import "pages/home";
+
+
+
+
+
