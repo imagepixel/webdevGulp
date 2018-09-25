@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="It´s me">
+    <meta name="author" content="St. Elisabeth Stiftung IT-Software">
 
     <!-- Die 3 Meta-Tags oben *müssen* zuerst im head stehen; jeglicher sonstiger head-Inhalt muss *nach* diesen Tags kommen -->
-    <title>Start-Template</title>
+    <title>Title..</title>
 
     <!-- Bootstrap -->
     <link href="assets/css/main.css" rel="stylesheet">
