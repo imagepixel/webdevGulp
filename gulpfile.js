@@ -1,151 +1,162 @@
-var gulp = require('gulp'); //Automate and enhance your workflow
-var md5 = require("gulp-md5-plus"); //replace the filenames in css or the html if needed by passing the file or dir in the second parameter
-var del = require('del'); //It also protects you against deleting the current working directory and above
-var sass = require('gulp-sass'); //Sass plugin for Gulp.
-var imagemin = require('gulp-imagemin'); 
-var rename = require('gulp-rename');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var gulpif = require('gulp-if');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var htmlmin = require('gulp-htmlmin');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var plumber = require('gulp-plumber');
-var beeper = require('beeper');
-var jsonfile = require('jsonfile');
+"use strict";
+const gulp = require('gulp'); //Automate and enhance your workflow
+const md5 = require("gulp-md5-plus"); //replace the filenames in css or the html if needed by passing the file or dir in the second parameter
+const del = require('del'); //It also protects you against deleting the current working directory and above
+const sass = require('gulp-sass'); //Sass plugin for Gulp.
+const imagemin = require('gulp-imagemin');
+const newer = require("gulp-newer");
+const rename = require('gulp-rename');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const gulpAutoprefixer = require('gulp-autoprefixer');
+const gulpif = require('gulp-if');
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const htmlmin = require('gulp-htmlmin');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const plumber = require('gulp-plumber');
+const eslint = require("gulp-eslint");
+const beeper = require('beeper');
+const jsonfile = require('jsonfile');
+const cssnano = require('gulp-cssnano');
 
 //Error Helper
-function onError(err){
+function onError(err) {
 	beeper();
 	console.log(err);
 }
 
 var MODE = "dev"; // production or 'dev'
+if (MODE === 'production') {
+	var cssmode = 'compressed';
+} else { cssmode = 'expanded'; }
 
 
-//Clean  your images
-gulp.task('cleanImages', function(){
-	return del(['./build/assets/img/']);
-});
-
-//Clean all your css
-gulp.task('cleanCSS', function(){
-	return del(['./build/assets/css/']);
-});
-
-//Clean manifest file
-gulp.task('cleanManifest', function(){
-	return del(['./manifest.json']);
-});
-//Clean pph,inc,html files
-gulp.task('cleanFiles', function(){
+// Clean assets
+function cleanImages() {
+	return del(["./build/assets/img/"]);
+}
+function cleanCSS() {
+	return del(["./build/assets/css/"]);
+}
+function cleanManifest() {
+	return del(["./manifest.json"]);
+}
+function cleanFiles() {
 	return del(['./build/*.{php,inc,html}']);
-});
+}
+
 
 //Copy data
-gulp.task('copyfiles', function() {
-  		return gulp.src('src/*.{php,html,inc}')
-    	.pipe(gulp.dest('./build/'));
-  	}
+function copyFiles() {
+	return gulp.src('src/*.{php,html,inc}')
+		.pipe(gulp.dest('./build/'));
+}
 
+// CSS task
+function css() {
 
-);
-
-//uglify CSS
-gulp.task('css', ['cleanCSS', 'cleanFiles', 'copyfiles'], function() {
-		
-			if (MODE ==='production') {
-				var cssmode = 'compressed';
-			}else{cssmode='expanded';}
-
-	return gulp.src('src/sass/style.scss')
+	return gulp
+		.src("src/sass/style.scss")
 		.pipe(plumber({
-				errorHandler:onError
+			errorHandler: onError
 		}))
-		// on error 
-		.pipe(sass({outputStyle: cssmode}).on('error', sass.logError))
-		.pipe(postcss([autoprefixer({
-					browsers: ['last 2 version','ie 9','ie 10']
+		.pipe(sass({ outputStyle: "cssmode" }).on('error', sass.logError))
+		.pipe(gulp.dest("./_site/assets/css/"))
+		.pipe(rename({ suffix: ".min" }))
+		.pipe(postcss([autoprefixer(), cssnano()]))
+		.pipe(gulp.dest("build/assets/css/"))
+
+}
+
+// Optimize Images
+function images() {
+	return gulp
+		.src("src/img/**/*")
+		.pipe(newer("./build/assets/img/"))
+		.pipe(
+			imagemin([
+				imagemin.gifsicle({ interlaced: true }),
+				imagemin.jpegtran({ progressive: true }),
+				imagemin.optipng({ optimizationLevel: 5 }),
+				imagemin.svgo({
+					plugins: [
+						{
+							removeViewBox: false,
+							collapseGroups: true
+						}
+					]
 				})
-		]))
-		.pipe(rename('main.css'))
-		.pipe(md5(10,'./build/*.{php,html,inc}',{
-			mappingFile: 'manifest.json'
-		}))
-		.pipe(gulp.dest('build/assets/css/'));
-});
-
-//shrink your images
-gulp.task('images', /*['css'],*/function() {
-	var imgSrc = 'src/img/**/*',
-        //quoteSrc = './build/assets/css/*.css', // [./output/static/css/**/*.css',./output/static/js/**/*.js'] 
-        imgDst = './build/assets/img/';
-  return gulp.src(imgSrc)
-  	   .pipe(plumber({
-				errorHandler:onError
-		}))
-  	   .pipe(imagemin())
-       /*.pipe(md5(10 ,quoteSrc,{
-        	dirLevel : 1,
-        	mappingFile: 'manifest.json',
-        	connector: '_'
-        }))*/
-   
-    .pipe(gulp.dest(imgDst));
-});
+			])
+		)
+		.pipe(gulp.dest("./build/assets/img/"));
+}
 
 
 
-//uglify js
 
-gulp.task('js', function() {
-	if (MODE ==='production') {
-		//production
-		 return gulp.src('src/js/main.js' )
-		  .pipe(plumber({
-				errorHandler:onError
-		}))
-		.pipe(concat('all.min.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('./build/assets/js/'));
-			}else{
-				//development
-				return gulp.src('src/js/main.js')
-				.pipe(plumber())
-				.pipe(concat('all.min.js'))
-				.pipe(gulp.dest('./build/assets/js/'));
-			}
+// Lint scripts
+function scriptsLint() {
+	return gulp
+		.src(["src/js/main.js"])
+		.pipe(plumber())
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
+}
+//minify scripts
+function scripts() {
+	return (
+		gulp
+			.src(["src/js/main.js"])
+			.pipe(plumber({
+				errorHandler: onError
+			}))
+			//.pipe(webpackstream(webpackconfig, webpack))
+			// folder only, filename is specified in webpack config
+			.pipe(concat('all.min.js'))
+			.pipe(gulp.dest("./build/assets/js/"))
+	);
+}
 
-});
-
-gulp.task('browserify', function(){
-	return browserify('src/js/app.js')
-	.bundle()
-	  .pipe(plumber({
-				errorHandler:onError
-		}))
-	.pipe(source('bundle.js'))
-	.pipe(gulp.dest('./build/assets/js/'));
-});
 
 
 //Clean all your files
-gulp.task('clean', function(){
+
+function clean() {
 	return del(['./build/']);
-});
+}
 
-//gulp watch tast
-gulp.task('watch', function() {
-	gulp.watch('src/img/*.{png,jpg,gif,svg}', ['images']);
-	gulp.watch('src/sass/**/*.scss', ['css']);
-	gulp.watch('src/js/**/*.js', ['js']);
-	gulp.watch('src/*.{html,php,inc}', ['css']);
+// Watch files
+function watchFiles() {
+	gulp.watch("src/sass/**/*.scss", css);
+	gulp.watch("./assets/js/**/*", gulp.series(scriptsLint, scripts));
+	gulp.watch(
+		[
+			"./_includes/**/*",
+			"./_layouts/**/*",
+			"./_pages/**/*",
+			"./_posts/**/*",
+			"./_projects/**/*"
+		],
 
-});
-//gulp default tast
+	);
+	gulp.watch("src/img/*.{png,jpg,gif,svg}", images);
+}
 
-gulp.task('default', ['cleanImages', 'cleanCSS', 'cleanManifest'], function(){
-	gulp.start('copyfiles',  'css', 'images', 'js', 'browserify');
-})
+
+// define complex tasks
+const js = gulp.series(scriptsLint, scripts);
+const build = gulp.series(copyFiles, cleanImages, cleanCSS, cleanFiles, cleanManifest, gulp.parallel(css, images, js));
+const watch = gulp.parallel(watchFiles);
+
+// export tasks
+
+exports.images = images;
+exports.css = css;
+exports.js = js;
+exports.clean = clean;
+exports.build = build;
+exports.watch = watch;
+exports.default = build;
