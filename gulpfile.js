@@ -19,10 +19,6 @@ function onError (err) {
   console.log(err)
 }
 
-var MODE = 'dev' // production or 'dev'
-if (MODE === 'production') {
-} else { }
-
 // Clean assets
 function cleanImages () {
   return del(['./build/assets/img/'])
@@ -45,7 +41,6 @@ function copyFiles () {
 
 // CSS task
 function css () {
-
   return gulp
     .src('src/sass/style.scss')
     .pipe(plumber({
@@ -122,7 +117,7 @@ function watchFiles () {
       './_pages/**/*',
       './_posts/**/*',
       './_projects/**/*'
-    ],
+    ]
   )
   gulp.watch('src/img/*.{png,jpg,gif,svg}', images)
 }
