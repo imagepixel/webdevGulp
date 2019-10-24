@@ -6,7 +6,7 @@
 Take the parts you really need and shrink your files.<br><br>
 
 it´s a small example for building your own Bootstrap framework with nodeJS (gulp, autoprefixer ...).<br>
-
+Bootstrap <br>
 
 1. install nodeJS <br>
 2. install gulp ($ npm install -g gulp)

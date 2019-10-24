@@ -1,11 +1,11 @@
 {
   "name": "webdev",
-  "version": "1.0.4",
+  "version": "1.0.3",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "David Schmidt",
+  "author": "SES IT-Software",
   "license": "ISC",
   "description": "minify js, images, css, html",
   "keywords": [
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/imagepixel/webdevGulp.git"
+    "url": "https://st-elisabeth-stiftung.visualstudio.com/Web%20Development/_git/starthtml2019"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",
@@ -42,12 +42,12 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.4.1",
+    "bootstrap": "^4.3.1",
+    "js-yaml": ">=3.13.1",
     "cssnano": "^4.1.10",
     "del": "^5.1.0",
     "gulp-eslint": "^6.0.0",
     "gulp-newer": "^1.4.0",
-    "jsonfile": "^5.0.0",
-    "js-yaml": ">=3.13.1"
+    "jsonfile": "^5.0.0"
   }
 }

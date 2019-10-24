@@ -12,6 +12,7 @@ const plumber = require('gulp-plumber')
 const eslint = require('gulp-eslint')
 const beeper = require('beeper')
 const cssnano = require('cssnano')
+const uglify = require('gulp-uglify');
 
 // Error Helper
 function onError (err) {
@@ -46,8 +47,7 @@ function css () {
     .pipe(plumber({
       errorHandler: onError
     }))
-    .pipe(sass({ outputStyle: 'cssmode' }).on('error', sass.logError))
-    .pipe(gulp.dest('./_site/assets/css/'))
+    .pipe(sass({ outputStyle: 'cssmode' }).on('error', sass.logError))    
     .pipe(rename({ suffix: '.min' }))
     .pipe(postcss([cssnano(), autoprefixer()]))
     .pipe(gulp.dest('build/assets/css/'))
@@ -84,6 +84,9 @@ function scriptsLint () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
+    .on('error', function (err) {
+      this.emit('end');
+    })
 }
 // minify scripts
 function scripts () {
@@ -95,8 +98,9 @@ function scripts () {
       }))
     // .pipe(webpackstream(webpackconfig, webpack))
     // folder only, filename is specified in webpack config
-      .pipe(concat('all.min.js'))
-      .pipe(gulp.dest('./build/assets/js/'))
+      .pipe(uglify())    
+      .pipe(concat('all.min.js'))        
+      .pipe(gulp.dest('./build/assets/js/'))      
   )
 }
 
@@ -109,7 +113,7 @@ function clean () {
 // Watch files
 function watchFiles () {
   gulp.watch('src/sass/**/*.scss', css)
-  gulp.watch('./assets/js/**/*', gulp.series(scriptsLint, scripts))
+  gulp.watch('src/js/**/*', gulp.series(scriptsLint, scripts))
   gulp.watch(
     [
       './_includes/**/*',
@@ -120,11 +124,12 @@ function watchFiles () {
     ]
   )
   gulp.watch('src/img/*.{png,jpg,gif,svg}', images)
+  gulp.watch('src/*.{php,html,inc}', gulp.series(cleanFiles, copyFiles))
 }
 
 // define complex tasks
 const js = gulp.series(scriptsLint, scripts)
-const build = gulp.series(cleanImages, cleanCSS, cleanFiles, cleanManifest, copyFiles, gulp.parallel(css, images, js))
+const build = gulp.series(cleanImages, cleanCSS, cleanFiles, cleanManifest, gulp.parallel(css, images, js), copyFiles)
 const watch = gulp.parallel(watchFiles)
 
 // export tasks

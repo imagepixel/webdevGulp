@@ -1,5 +1,74 @@
+.foundation-header {
+    padding: 0px;
+}
 
+#bluefield {
+    background-color: #002D72;
+    background-color: $color-foundationblue;
+    height: 120px;
+    width: 100%;
+    margin: 0 auto;
+}
 
+.coloredstripe,
+#whitestripe {
+    height: 12px;
+    width: 100%;
+}
 
+.coloredstripe div {
+    display: block;
+    float: left;
+    height: 12px;
+    background-size: cover;
+    width: 14%;
+}
 
+.coloredstripe div:first-child {
+    width: 15%;
+}
 
+.coloredstripe div:last-child {
+    width: 15%;
+}
+
+.coloredstripe div:nth-child(1) {
+    background-color: #f7c000;
+    background-color: var($color-bu-yellow);
+}
+
+.coloredstripe div:nth-child(2) {
+    background-color: #980058;
+    background-color: var($color-bu-violet);
+}
+
+.coloredstripe div:nth-child(3) {
+    background-color: #d4314a;
+    background-color: var($color-bu-red);
+}
+
+.coloredstripe div:nth-child(4) {
+    background-color: #006ca7;
+    background-color: var($color-bu-lightblue);
+}
+
+.coloredstripe div:nth-child(5) {
+    background-color: #055166;
+    background-color: var($color-bu-darkblue);
+}
+
+.coloredstripe div:nth-child(6) {
+    background-color: #018f78;
+    background-color: var($color-bu-darkgreen);
+}
+
+.coloredstripe div:nth-child(7) {
+    background-color: #95c21f;
+    background-color: var($color-bu-lightgreen);
+}
+
+#logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 100px;
+}

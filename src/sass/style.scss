@@ -1,10 +1,7 @@
 /*!
  * Bootstrap (if nessesary )
 */
-@import "bootstrap/variables"; //custom 24 Grid Bootstrap Layout
-@import "src/sass/modules";
-
-
+@import "node_modules/bootstrap/scss/bootstrap"; //einzelne Module können in Datei auskommetiert werden
 /*!
  * project styles
  */
@@ -26,6 +23,7 @@
 
  //layout like grid-system
  @import "layout/header";
+ @import "layout/footer";
 
  //special site styles
  @import "pages/home";
